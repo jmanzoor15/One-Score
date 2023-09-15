@@ -10,7 +10,7 @@ export default defineEventHandler(async () => {
   var formattedDate = year + "-" + month + "-" + day;
 
   const { data } = await $fetch(
-    `${Url}/matchlist?auth=${token}&date=${formattedDate}&sport_id=1&live=true&utc_offset=4&lang=en&country=vi&id=1 `
+    `${Url}/competitionlist?auth=${token}&sport_id=1&lang=en `
   );
 
   return data;

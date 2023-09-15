@@ -6,13 +6,14 @@ export default defineNuxtConfig({
     token: process.env.API_SECRET_KEY,
     public: {
       API_BASE_URL: process.env.API_BASE_URL,
- 
+      token: process.env.API_SECRET_KEY,
     },
   },
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@samk-dev/nuxt-vcalendar'
 ]
 
 

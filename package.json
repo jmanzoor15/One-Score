@@ -10,12 +10,14 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@samk-dev/nuxt-vcalendar": "^1.0.0",
     "nuxt": "^3.7.0",
     "nuxt-icon": "^0.5.0",
     "saas": "^1.0.0",
     "sass": "^1.66.1"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.8.0"
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "jsdom": "^22.1.0"
   }
 }
