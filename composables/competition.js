@@ -3,7 +3,7 @@ export default () => {
     const token = useRuntimeConfig().public.token;
   
     const get = async (endpoint) => {
-      return useFetch(`${url}${endpoint}&auth=${token}`);
+      return useFetch(`${Url}${endpoint}&auth=${token}`);
     };
   
     const getNewsFootball = async (sport_id = 1, lang = "en") => {
