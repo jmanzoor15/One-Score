@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center bg-white">
-        <div class="flex justify-center  bg-white w-[1400px] h-[900px]">
+        <div class="flex justify-center  bg-white w-[1400px] h-[1050px]">
             <div class="flex-col items-center mb-3  bg-white w-[1200px] px-4">
                 <div class="flex items-center justify-between">
                     <div class="h-[76px] w-[844px]">
@@ -194,11 +194,11 @@
                     </div>
                 </div>
                 <div class="border-[1px] mt-[40px]"></div>
-                <div class="flex justify-between items-center  p-4">
+                <div class="matches  flex items-flex-start justify-between   p-4">
                     <!-- Flex Items -->
-                    <div class="flex justify-center items-start text-gray-500  text-[12px]">
+                    <div class="flex justify-center items-start text-gray-500  text-[12px] h-[]">
                         <ul>
-                            <b>Next Matches</b>
+                            <b class="text-[#191919] text-[17px]">Next matches</b>
                             <li>New York Knicks - New Orleans Pelicans</li>
                             <li>Fulham - Wolverhampton Wanderers</li>
                             <li>Leicester city - Arsenal</li>
@@ -207,7 +207,7 @@
                             <li>New York Knicks - New Orleans Pelicans</li>
                         </ul>
                     </div>
-                    <div class="flex justify-center items-center text-gray-500  text-[12px]">
+                    <div class="flex justify-center items-start text-gray-500  mt-4 text-[12px] ">
                         <ul>
                             <li>New York Knicks - New Orleans Pelicans</li>
                             <li>Fulham - Wolverhampton Wanderers</li>
@@ -221,29 +221,20 @@
                             <li>Fulham - Wolverhampton Wanderers</li>
                             <li>Crystal palace - Liverpool</li>
                             <li>New York Knicks - New Orleans Pelicans</li>
+                            
 
                         </ul>
                     </div>
-                    <div class="flex justify-center items-center text-gray-500  text-[12px]">
+                    <div class="flex justify-center items-start text-gray-500  text-[12px] ">
                         <ul>
-                            <b>FootBall</b>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Leicester city - Arsenal</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Crystal palace - Liverpool</li>
-                            <li>New York Knicks - New Orleans Pelicans</li>
+                            <b class="text-[#191919] text-[17px]">Football</b>
+                            <li  v-for="(match, index) in Footballmatches" :key="index">{{ match.home_team.name}} - {{ match.away_team.name }}</li>
                         </ul>
                     </div>
-                    <div class="flex justify-center items-center text-gray-500  text-[12px]">
+                    <div class="flex justify-center items-start text-gray-500  text-[12px]">
                         <ul>
-                            <b class="mt-[20px]">BasketBall</b>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Leicester city - Arsenal</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Crystal palace - Liverpool</li>
-                            <li>New York Knicks - New Orleans Pelicans</li>
+                            <b class="mt-[20px] text-[#191919] text-[17px]">Basketball</b>
+                            <li v-for="(match, index) in Basketballmatches" :key="index">{{ match.home_team.name}} - {{ match.away_team.name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -252,10 +243,10 @@
                     <b>Follow Us</b>
                 </div>
                 <nav>
-                    <ul class="flex items-center justify-center space-x-4">
+                    <ul class="flex items-center justify-center space-x-4 mt-5">
                         <li class="relative">
                             <div
-                                class="w-[48px] h-[48px] bg-white rounded-full flex items-center justify-center bg-gray-200 border-2">
+                                class="w-[48px] h-[48px]  rounded-full flex items-center justify-center  bg-[#E4E5E7] border-2">
                                 <svg id="Component_414_2" data-name="Component 414 – 2" xmlns="http://www.w3.org/2000/svg"
                                     width="23.998" height="24" viewBox="0 0 23.998 24">
                                     <g id="Layer_1" data-name="Layer 1" transform="translate(7.199 0.002)">
@@ -270,7 +261,7 @@
                         </li>
                         <li class="relative">
                             <div
-                                class="w-[48px] h-[48px] relative  bg-white rounded-full flex items-center justify-center bg-gray-200 border-2">
+                                class="w-[48px] h-[48px] relative   rounded-full flex items-center justify-center  bg-[#E4E5E7] border-2">
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="23.04"
                                     height="23.04" viewBox="0 0 23.04 23.04">
                                     <g id="Group_6082" data-name="Group 6082">
@@ -290,7 +281,7 @@
                     </li>
                     <li class="relative">
                         <div
-                            class="w-[48px] h-[48px] bg-white rounded-full flex items-center justify-center bg-gray-200 border-2">
+                            class="w-[48px] h-[48px]  rounded-full flex items-center justify-center bg-gray-200 border-2">
                             <svg id="Component_413_2" data-name="Component 413 – 2" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="23.998" viewBox="0 0 24 23.998">
                                 <g id="Layer_1" data-name="Layer 1" transform="translate(0 3)">
@@ -331,14 +322,10 @@
                 <label for="toggleB" class="flex items-center cursor-pointer">
                     <!-- toggle -->
                     <div class="relative">
-                        <!-- input -->
                         <input type="checkbox" id="toggleB" class="sr-only">
-                        <!-- line -->
                         <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
-                        <!-- dot -->
                         <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                     </div>
-                    <!-- label -->
                 </label>
                 <b class="ml-2 mt-1">Switch to dark mode</b>
             </div>
@@ -348,7 +335,11 @@
 </div></template>
 
 <script setup>
+const {data : football} = await useFetch('/api/football_matches');
+const {data : basketball} = await useFetch('/api/basketball_matches');
 
+const Footballmatches = computed(() => football.value.slice(0, 5));
+const Basketballmatches = computed(() => basketball.value.slice(0, 5));
 </script>
 
 <style lang="scss" scoped>.cls-1 {
@@ -358,4 +349,12 @@
 input:checked~.dot {
     transform: translateX(100%);
     background-color: #48bb78;
-}</style>
+}
+.matches li{
+ 
+color: var(--neutral-variant-30);
+text-align: left;
+font: normal normal normal 14px/19px Noto Sans;
+margin: 8px 0px 0px 0px;
+}
+</style>

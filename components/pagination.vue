@@ -17,7 +17,6 @@
   </div>
 </template>
 
-
 <script setup>
 const props = defineProps({
   totalPages: Number,
@@ -32,10 +31,8 @@ const pageArray = computed(() => {
   return Array.from({ length: props.totalPages }, (_, index) => index + 1);
 });
 
-
-const maxDisplayedPages = 5;
-
-const displayedPages = computed(() => {
+  const maxDisplayedPages = 5;
+  const displayedPages = computed(() => {
   const middlePage = Math.floor(maxDisplayedPages / 2);
   const startPage = Math.max(props.currentPage - middlePage, 1);
   const endPage = Math.min(startPage + maxDisplayedPages - 1, props.totalPages);
@@ -48,8 +45,3 @@ const displayedPages = computed(() => {
 <style scoped>
 /* Add your custom styles here */
 </style>
-
-
-
-
- 

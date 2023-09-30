@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="index-left bg-white p-2  border-[1px] border-gray-300 rounded-md">
+    <div class="index-left bg-white p-2 drop-shadow-md  rounded-md">
       <div class="hot-comps p-0  pb-12 mb-15">
         <div class="title border-b border-gray-300 mb-2 h-10 leading-10 font-medium text-black">
           Popular Leagues
@@ -61,7 +61,20 @@
 </template>
 
 <script setup>
-const { data } = useFetch('/api/competitionList')
+const props = defineProps({
+    data: Object
+});
+
+const list = ref(props.data);
+
+watch(() => props.data, (newData) => {
+  if (newData) {
+    list.value = newData;
+  } else {
+    list.value = [];
+  }
+});
+
 
 let selectedCountry = ref(null);
 
@@ -71,27 +84,22 @@ const toggleColor = () => {
 
 };
 
-
 const isRotated = ref([false]);
 const toggleCountry = (index) => {
-  console.log(index)
   isRotated[index] = !isRotated[index];
 }
 
 const getFirstName = (fullName) => {
-  // Split the string using a regular expression that matches either a space or a hyphen
   const names = fullName.split(/[\s-]/);
   return names.slice(0, 3).join(' ');
 };
 
 const searchText = ref('');
 
-
-
 const filteredCountries = computed(() => {
-  if (Array.isArray(data.value)) {
+  if (Array.isArray(list.value)) {
     const normalizedSearchText = searchText.value.trim().toLowerCase();
-    return data.value.filter(country =>
+    return list.value.filter(country =>
       country.name.toLowerCase().includes(normalizedSearchText)
     );
   } else {
@@ -99,8 +107,6 @@ const filteredCountries = computed(() => {
     return [];
   }
 });
-
-
 
 </script>
 
@@ -162,22 +168,6 @@ const filteredCountries = computed(() => {
   flex: 1;
 }
 
-/* .index-left .country-logo {
-    transition: all .3s ease;
-    -webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    border: 1px solid #eee;
-    -o-object-fit: contain;
-    object-fit: contain;
-    overflow: hidden;
-    height: 20px;
-    width: 20px;
-} */
 .index-left .country-logo img[data-v-143d32ee] {
   -o-object-fit: contain;
   object-fit: contain;
@@ -187,4 +177,5 @@ const filteredCountries = computed(() => {
 
 .ml-xs {
   margin-left: 8px;
-}</style>
+}
+</style>

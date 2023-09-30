@@ -64,8 +64,6 @@
               transform="translate(-118.816 -176)" />
           </g>
         </svg>
-
-
       </div>
     </div>
     <div class="image-container h bg-white rounded-lg">
@@ -133,25 +131,6 @@
     </div>
     <div class="my-6">
       <p class="font-bold text-3xl">Related News</p>
-
-
-
-
-      <!-- <div v-for="news in data.data" :key="news.uuid" class="col-span-1">
-            <div class="w-full h-[200px] flex  rounded-lg overflow-hidden pb-6">
-              <div class="relative">
-                 <NuxtLink :href="`/football/news/${news.uuid}`">
-                  <img :src="news.thumbnail" class="w-full h-auto" />
-                </NuxtLink>
-              </div>
-            </div>
-            <div class="flex flex-col mt-2 gap-2 mb-6">
-              <NuxtLink :href="`/football/news/${news.uuid}`">
-                <h2 class="font-bold text-md line-clamp-2 text-ellipsis mb-1 text-gray-200">{{ news.title }}</h2>
-              </NuxtLink>
-              <h3 class="text-xs mt-1 overflow-hidden overflow-ellipsis h-12 text-gray-300"  v-html="news.content" ></h3>
-            </div>
-          </div> -->
       <div class="flex items-center justify-between  my-4  h-[260px]  rounded-lg">
         <div class="w-[280px]  h-[260px] bg-white  rounded-lg"></div>
         <div class="w-[280px]  h-[260px] bg-white  rounded-lg"></div>
@@ -159,16 +138,12 @@
         <div class="w-[280px]  h-[260px] bg-white  rounded-lg"></div>
       </div>
     </div>
-
-
   </div>
 </template>
 <script setup>
 const props = defineProps({
   filteredArticles: Object
 });
-const { data } = await newsApi().getPostsFootball();
-
 
 function truncateText(text) {
   if (text.length > 200) {
@@ -176,23 +151,6 @@ function truncateText(text) {
   }
   return text;
 }
-
-
-
-
-// function extractTextFromHTML(html) {
-//   const div = document.createElement('div');
-//   div.innerHTML = html;
-//   const textContent = div.textContent;
-//   const formattedText = textContent.replace(/\.\s/g, '.\n \n \n');
-
-//   return formattedText;
-// }
-// onMounted(()=>{
-//   extractTextFromHTML();
-// });
-
-
 
 const getLocalDateTime2 = (dateStr) => {
   const dateTime = dateStr.split(" ");
@@ -219,10 +177,7 @@ const getLocalDateTime2 = (dateStr) => {
   return timeDifferenceInHours;
 };
 
-
-
 </script>
-
 
 <style lang="scss" scoped>
 .image-container {
@@ -239,7 +194,6 @@ const getLocalDateTime2 = (dateStr) => {
   object-position: center center;
 }
 
-
 #Component_235_9 {
   width: 20px;
   height: 30px;
@@ -249,10 +203,9 @@ const getLocalDateTime2 = (dateStr) => {
   margin-left: 10px;
 }
 
-
-
 #time {
   width: 20px;
   height: 15px;
   color: #494C52;
-}</style>
+}
+</style>

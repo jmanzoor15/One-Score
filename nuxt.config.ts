@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-
   runtimeConfig: {
     API_BASE_URL: process.env.API_BASE_URL,
     token: process.env.API_SECRET_KEY,
+
     public: {
       API_BASE_URL: process.env.API_BASE_URL,
       token: process.env.API_SECRET_KEY,
@@ -13,8 +13,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     'nuxt-icon',
-    '@samk-dev/nuxt-vcalendar'
-]
+],
+plugins: [
+  {
+      src:'~/plugins/v-calendar', mode: 'client'
+  }
+],
 
 
 })

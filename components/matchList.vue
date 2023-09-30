@@ -1,41 +1,50 @@
 <template>
-  <div>
-    <div class="right-box  p-0 rightBox border-[1px] border-gray-300 rounded-lg ml-2">
-      <!-- <span v-for="score in Scores" ><span v-if="score.title === 'Half Time'">{{ score}}</span></span> -->
-      <!-- <div class="bannerBox h-24 relative mb-3 cursor-pointer">
-                <img src="https://static.aiscore.com/_nuxt/img/banner.dd0e2ed.png" alt="#" class="banner w-full h-24">
-                <Icon name="material-symbols:close-rounded" class="close text-xl text-blue-200 absolute top-3 right-4" />
-            </div> -->
+  <div class="ml-4">
+    <div class="right-box  p-0 rightBox drop-shadow-md ml-2">
       <div class="index-r" style="width:576px;margin:0;min-height:500px;">
-        <p class="mt-[-3px] font-bold">Matches</p>
-        <div class="screen-header mt-2 gap-2" style="z-index:2;">
-          <button class="All p-2  px-6  border-[1px] rounded-full bg-transparent" @click="showMatches(0)"
-            :class="{ 'active': currentStatus === 0 }">All</button>
-          <button class="All p-2  px-6  border-[1px] rounded-full bg-transparent" @click="showMatches(1)"
-            :class="{ 'active': currentStatus === 1 }">Upcoming</button>
-          <button class="All p-2  px-6  border-[1px] rounded-full bg-transparent" @click="showMatches(2)"
-            :class="{ 'active': currentStatus === 2 }">Live</button>
-          <button class="All p-2  px-6  border-[1px] rounded-full bg-transparent" @click="showMatches(3)"
-            :class="{ 'active': currentStatus === 3 }">Finished</button>
-
+        <div class="w-[382px]">
+          <div class="h-[28px]">
+            <p class=" font-bold text-[20px]">Date, {{ calenderDate }}</p>
+          </div>
+          <div class="flex items-center z-20 relative mb-[20px] mt-4 h-[32px] gap-2" style="z-index:2;">
+            <button class="All p-2  px-4  border-[1px] rounded-full bg-transparent" @click="showMatches(0)"
+              :class="{ 'active': currentStatus === 0 }">All</button>
+            <button class="All p-2  px-4  border-[1px] rounded-full bg-transparent" @click="showMatches(1)"
+              :class="{ 'active': currentStatus === 1 }">Upcoming</button>
+            <button class="All p-2  px-4  border-[1px] rounded-full bg-transparent" @click="showMatches(2)"
+              :class="{ 'active': currentStatus === 2 }">Live</button>
+            <button class="All p-2  px-4  border-[1px] rounded-full bg-transparent" @click="showMatches(3)"
+              :class="{ 'active': currentStatus === 3 }">Finished</button>
+          </div>
         </div>
         <div class="Match container mx-auto">
           <!-- Check if there is data available -->
           <div v-if="Object.keys(filteredMatches).length > 0">
             <div v-for="(group, competitionUUID) in filteredMatches" :key="competitionUUID"
-              class="league-container  p-2 ">
-              <div class="league-header flex items-center border-b border-gray-400 last:border-b-0 py-2 ">
-                <img :src="group[0].competition.logo" alt="Competition Logo"
+              class="league-container  px-2 ">
+              <div class="league-header flex items-center border-b border-gray-400 last:border-b-0 pb-2">
+                <img v-if="group[0].competition.logo" :src="group[0].competition.logo" alt="Competition Logo"
                   class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
-                <h4 class="country-name font-bold text-gray-400" v-if="group[0].country">{{ group[0].country.name }}:
+                <svg v-else id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                  width="20px" height="20px" class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
+                  <!-- SVG content -->
+                  <path class="cls-1"
+                    d="m156.25,20.17c-9.06,70.87-65.2,127.01-136.07,136.07C46.06,95.07,95.07,46.06,156.25,20.17Z" />
+                  <path class="cls-1"
+                    d="m157.54,201.78v290.57C65.03,453.79,0,362.49,0,256c35.38,0,69.1-7.18,99.75-20.17,20.81-8.82,40.24-20.3,57.79-34.05Z" />
+                  <path class="cls-1"
+                    d="m269.68.36c-4.53-.23-9.09-.36-13.69-.36v512c4.6,0,9.15-.13,13.69-.36,135.04-7.11,242.32-118.84,242.32-255.63S404.72,7.47,269.68.36Zm0,34.47c40.45,2.49,77.99,15.86,109.73,37.21l23.93,72.7-51.12,40.47-31.79-10.33-50.76-16.5V34.83Zm119.44,373.06l-9.84,32.13c-31.7,21.31-69.21,34.64-109.6,37.09v-122.95l82.2-26.72,33.11,30.87,15.03,14.03-10.9,35.55Zm19.2-46.5l-15.41-14.37-32.47-30.3v-120.57l51.14-40.49,57.8,40.52c5.34,19.03,8.2,39.09,8.2,59.8s-2.98,41.56-8.52,60.95l-60.74,44.45Z" />
+                </svg>
+                <h4 class="country-name font-bold  text-[#494C52]" v-if="group[0].country">{{ group[0].country.name }}:
                   &nbsp; </h4>
-                <h4 class="league-name  font-bold text-gray-400">{{ group[0].competition.name }}</h4>
+                <h4 class="league-name  font-bold text-[#494C52]">{{ group[0].competition.name }}</h4>
               </div>
               <ul class="match-list">
                 <li v-for="(match, index) in group" :key="match.uuid"
                   class="match-item border-b border-gray-300 last:border-b-0 flex items-center">
-                  <div class="flex items-center">
-                    <svg id="like" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.002 24">
+                  <div class="flex items-center h-[20px] w-[26px]">
+                    <svg v-if="match.status == 1 || match.status == 2" id="like" xmlns="http://www.w3.org/2000/svg"
+                      width="20" height="20" viewBox="0 0 24.002 24">
                       <rect id="Rectangle_874" data-name="Rectangle 874" width="24" height="24"
                         transform="translate(0.002)" fill="none" />
                       <g id="Group_15033" data-name="Group 15033" transform="translate(0 0.371)">
@@ -45,49 +54,74 @@
                       </g>
                     </svg>
                   </div>
-                  <div class=" ml-3 flex flex-col items-center ⬤  w-[70px]">
-                    <span class="text-red-400 text-[10px] relative right-6">&nbsp;{{ match.status_name }}</span>
-                    <span class="text-red-400 text-[10px] relative right-6">
+                  <div class=" flex flex-col items-center ⬤  jutsify-between  w-[50px] ">
+                    <span v-if="match.status_name && match.status !== 2 && match.status !== 1"
+                      class="text-red-400 text-[10px] relative mt-3 right-2 ">{{ convertTimestamp(match.match_time)
+                      }}</span>
+                    <span v-if="match.status_name && match.status == 2"
+                      class="text-red-400 text-[10px] relative ">&nbsp;{{ match.status_name }}</span>
+                    <span class="text-red-400 text-[10px] relative ">
                       &nbsp;{{ stringMatchPlayedTimeMapping(match.status_id, match.kick_off_timestamp,
                         match.match_time) }}</span>
                   </div>
-                  <div class="py-2  flex flex-col ml-6">
+                  <div class="py-2  flex flex-col ">
                     <div class="flex items-center  mb-1">
-                      <img :src="match.home_team.logo" alt="Home Team Logo"
+                      <img v-if="match.home_team && match.home_team.logo" :src="match.home_team.logo" alt="Home Team Logo"
                         class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
+                      <svg v-else id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512" width="20px" height="20px"
+                        class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
+                        <!-- SVG content -->
+                        <path class="cls-1"
+                          d="m156.25,20.17c-9.06,70.87-65.2,127.01-136.07,136.07C46.06,95.07,95.07,46.06,156.25,20.17Z" />
+                        <path class="cls-1"
+                          d="m157.54,201.78v290.57C65.03,453.79,0,362.49,0,256c35.38,0,69.1-7.18,99.75-20.17,20.81-8.82,40.24-20.3,57.79-34.05Z" />
+                        <path class="cls-1"
+                          d="m269.68.36c-4.53-.23-9.09-.36-13.69-.36v512c4.6,0,9.15-.13,13.69-.36,135.04-7.11,242.32-118.84,242.32-255.63S404.72,7.47,269.68.36Zm0,34.47c40.45,2.49,77.99,15.86,109.73,37.21l23.93,72.7-51.12,40.47-31.79-10.33-50.76-16.5V34.83Zm119.44,373.06l-9.84,32.13c-31.7,21.31-69.21,34.64-109.6,37.09v-122.95l82.2-26.72,33.11,30.87,15.03,14.03-10.9,35.55Zm19.2-46.5l-15.41-14.37-32.47-30.3v-120.57l51.14-40.49,57.8,40.52c5.34,19.03,8.2,39.09,8.2,59.8s-2.98,41.56-8.52,60.95l-60.74,44.45Z " />
+                      </svg>
                       <div class="h-8 w-60 flex items-center">
-                        <span class=" relative text-[14px]">{{ match.home_team.name }} {{ match.status_name }}</span>
-                        <span class=" relative text-[8px] "
+                        <span v-if="match.home_team && match.home_team.name"
+                          class=" relative text-[14px] text-[#191919] font-semibold">{{ match.home_team.name }}</span>
+                        <span class=" relative text-[8px]  text-[#191919] "
                           v-if="match.home_position === match.home_position ? match.home_position : ''"> &nbsp;[{{
                             match.home_position }}]</span>
                       </div>
-                      <div class="w-[12px] h-[11px]">
-                        <svg id="Livestreaming" xmlns="http://www.w3.org/2000/svg" width="12" height="11"
-                          viewBox="0 0 24 24">
+                      <div class="w-[40px] h-[11px]">
+                        <svg v-if="match.status == 2" id="Livestreaming" xmlns="http://www.w3.org/2000/svg" width="12"
+                          height="11" viewBox="0 0 24 24">
                           <rect id="Rectangle_875" data-name="Rectangle 875" width="24" height="24" fill="none" />
                           <path id="Icon_material-live-tv" data-name="Icon material-live-tv"
                             d="M23.318,7.4h-8.28l3.589-3.619L17.864,3,13.5,7.4,9.136,3l-.775.781,3.6,3.619H3.682A2.19,2.19,0,0,0,1.5,9.6V22.8A2.2,2.2,0,0,0,3.682,25H23.318A2.2,2.2,0,0,0,25.5,22.8V9.6A2.19,2.19,0,0,0,23.318,7.4Zm0,15.4H3.682V9.6H23.318Zm-13.091-11v8.8l7.636-4.4Z"
-                            transform="translate(-1.5 -2)" fill="#c2c2c2" />
+                            transform="translate(-1.5 -2)" fill="#0081DB" />
                         </svg>
-
                       </div>
-                      <!-- <span >{{generateScoreScenarios(match.home_scores, match.away_scores) }}</span> -->
-                      <span class="left-[110px] relative">{{ match.home_scores[0] }}</span>
+                      <span v-if="match.status == 2 || match.status == 3" class="left-[120px]  relative">{{
+                        match.home_scores[0] }}</span>
                     </div>
-
-
                     <div class="flex items-center">
-                      <img :src="match.away_team.logo" alt="Away Team Logo"
+                      <img v-if="match.away_team && match.away_team.logo" :src="match.away_team.logo" alt="Away Team Logo"
                         class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
-                      <div class="h-8 w-60  flex items-center">
-                        <span class=" relative text-[14px]">{{ match.away_team.name }}</span>
-                        <span class=" relative text-[8px] "
+                      <svg v-else id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512" width="20px" height="20px"
+                        class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
+                        <!-- SVG content -->
+                        <path class="cls-1"
+                          d="m156.25,20.17c-9.06,70.87-65.2,127.01-136.07,136.07C46.06,95.07,95.07,46.06,156.25,20.17Z" />
+                        <path class="cls-1"
+                          d="m157.54,201.78v290.57C65.03,453.79,0,362.49,0,256c35.38,0,69.1-7.18,99.75-20.17,20.81-8.82,40.24-20.3,57.79-34.05Z" />
+                        <path class="cls-1"
+                          d="m269.68.36c-4.53-.23-9.09-.36-13.69-.36v512c4.6,0,9.15-.13,13.69-.36,135.04-7.11,242.32-118.84,242.32-255.63S404.72,7.47,269.68.36Zm0,34.47c40.45,2.49,77.99,15.86,109.73,37.21l23.93,72.7-51.12,40.47-31.79-10.33-50.76-16.5V34.83Zm119.44,373.06l-9.84,32.13c-31.7,21.31-69.21,34.64-109.6,37.09v-122.95l82.2-26.72,33.11,30.87,15.03,14.03-10.9,35.55Zm19.2-46.5l-15.41-14.37-32.47-30.3v-120.57l51.14-40.49,57.8,40.52c5.34,19.03,8.2,39.09,8.2,59.8s-2.98,41.56-8.52,60.95l-60.74,44.45Z" />
+                      </svg>
+                      <div class="h-[20px] w-60  flex items-center">
+                        <span v-if="match.away_team && match.away_team.name"
+                          class=" relative text-[14px]  text-[#494C52] font-semibold">{{ match.away_team.name }}</span>
+                        <span class=" relative text-[8px] text-[#494C52] "
                           v-if="match.home_position === match.home_position ? match.home_position : ''">&nbsp;[{{
                             match.away_position }}]</span>
                       </div>
-                      <!-- <span class="hidden">{{generateScoreScenarios(match.home_scores, match.away_scores) }}</span> -->
-                      <div class="w-[12px] h-[11px]">
-                        <svg id="Live" xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 24 24">
+                      <div class="w-[40px] h-[11px]" :class="{ 'relative left-8 bottom-4': match.status === 3 }">
+                        <svg v-if="match.status == 2 || match.status == 3" id="Live" xmlns="http://www.w3.org/2000/svg"
+                          width="12" height="11" viewBox="0 0 24 24">
                           <rect id="Rectangle_876" data-name="Rectangle 876" width="24" height="24" fill="none" />
                           <g id="Group_7214" data-name="Group 7214" transform="translate(-408 -120)">
                             <rect id="Rectangle_1329" data-name="Rectangle 1329" width="24" height="24"
@@ -99,9 +133,29 @@
                             </g>
                           </g>
                         </svg>
-
+                        <svg class="relative bottom-4 left-8" v-if="match.status == 1" id="statistics"
+                          xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 24 24">
+                          <path id="analytics_FILL0_wght400_GRAD0_opsz48"
+                            d="M122,240a2.051,2.051,0,0,1-2-2V218a2.051,2.051,0,0,1,2-2h20a2.051,2.051,0,0,1,2,2v20a2.051,2.051,0,0,1-2,2Zm0-2h20V218H122Zm4.472-3.233a.957.957,0,0,0,.711-.288.975.975,0,0,0,.283-.712v-4.833a.965.965,0,0,0-.289-.713.976.976,0,0,0-.717-.287.957.957,0,0,0-.711.287.975.975,0,0,0-.283.713v4.833a.965.965,0,0,0,.289.712A.976.976,0,0,0,126.473,234.767Zm11.067,0a.957.957,0,0,0,.711-.288.975.975,0,0,0,.283-.712v-12a.965.965,0,0,0-.289-.713.976.976,0,0,0-.717-.287.957.957,0,0,0-.711.287.975.975,0,0,0-.283.713v12a.965.965,0,0,0,.289.712A.976.976,0,0,0,137.539,234.767Zm-5.533,0a.957.957,0,0,0,.711-.288.975.975,0,0,0,.283-.712v-1.933a.965.965,0,0,0-.289-.712.976.976,0,0,0-.717-.288.957.957,0,0,0-.711.288.975.975,0,0,0-.283.712v1.933a.965.965,0,0,0,.289.712A.976.976,0,0,0,132.006,234.767Zm.011-6.833a.944.944,0,0,0,.7-.288.975.975,0,0,0,.283-.712V226.9a.9.9,0,0,0-.3-.689,1.018,1.018,0,0,0-.717-.278.944.944,0,0,0-.7.287.975.975,0,0,0-.283.713v.033a.9.9,0,0,0,.3.689A1.018,1.018,0,0,0,132.017,227.933ZM122,238v0Z"
+                            transform="translate(-120 -216)" />
+                        </svg>
                       </div>
-                      <span class="left-[110px] relative">{{ match.away_scores[0] }}</span>
+                      <span v-if="match.status == 2 || match.status == 3" class="left-[120px] relative">{{
+                        match.away_scores[0] }}</span>
+                    </div>
+                  </div>
+                  <div v-if="match.status == 1">
+                    <div class="flex flex-col items-start relative top-[2px] right-2">
+                      <template v-if="match.odds && match.odds[0] && match.odds[0].name === 'BET365'">
+                        <span class="left-[120px] relative home_odds text-[14px]">{{ match.odds[0].eu[0][2] }}</span>
+                        <span class="left-[120px] relative draw_odds text-[14px]">{{ match.odds[0].eu[0][3] }}</span>
+                        <span class="left-[120px] relative away_odds text-[14px]">{{ match.odds[0].eu[0][4] }}</span>
+                      </template>
+                      <template v-else>
+                        <span class="left-[130px] relative home_odds text-[14px]">-</span>
+                        <span class="left-[130px] relative draw_odds text-[14px]">-</span>
+                        <span class="left-[130px] relative away_odds text-[14px]">-</span>
+                      </template>
                     </div>
                   </div>
                 </li>
@@ -124,18 +178,42 @@
   
 <script setup >
 const props = defineProps({
-  data: Object
+  data: Object,
+  date: Object
 });
 
 const matchData = ref([]);
-matchData.value = props.data;
 
-const currentStatus = ref(2); // Default to live matches
+watch(() => props.data, (newData) => {
+  if (newData) {
+    matchData.value = newData;
+  } else {
+    matchData.value = [];
+  }
+});
+
+
+const dateList = new Date();
+const currentStatus = ref(2);
+
+watch(() => props.date, (newDate) => {
+  if (newDate === dateList) {
+    currentStatus.value = 2;
+  } else {
+    currentStatus.value = 0;
+  }
+});
+
+const calenderDate = computed(() => {
+  const year = props.date.getFullYear();
+  const month = String(props.date.getMonth() + 1).padStart(2, '0');
+  const day = String(props.date.getDate()).padStart(2, '0');
+  return `${day}/${month}/${year}`;
+});
 
 const showMatches = (statusId) => {
   currentStatus.value = statusId;
 };
-
 
 const filteredMatches = computed(() => {
   if (currentStatus.value === 0) {
@@ -144,21 +222,16 @@ const filteredMatches = computed(() => {
   }
 
   const filteredGroups = {};
-
   // Iterate through each competition UUID
   for (const competitionUUID in groupedMatches.value) {
     const matches = groupedMatches.value[competitionUUID];
 
-    // Filter matches within each competition based on the selected status
     const filteredMatches = matches.filter((match) => {
       if (currentStatus.value === 1) {
-        // Filter upcoming matches (status 1)
         return match.status === 1;
       } else if (currentStatus.value === 2) {
-        // Filter live matches (status 2)
         return match.status === 2;
       } else if (currentStatus.value === 3) {
-        // Filter finished matches with status 3
         return match.status === 3;
       }
     });
@@ -167,14 +240,11 @@ const filteredMatches = computed(() => {
       filteredGroups[competitionUUID] = filteredMatches;
     }
   }
-
   return filteredGroups;
 });
 
-
 const groupedMatches = computed(() => {
   const grouped = {};
-
   // Group matches by competition UUID
   for (const match of matchData.value) {
     const competitionUUID = match.competition.uuid;
@@ -183,7 +253,6 @@ const groupedMatches = computed(() => {
     }
     grouped[competitionUUID].push(match);
   }
-
   return grouped;
 });
 
@@ -193,20 +262,21 @@ const toggleColor = () => {
   isClicked.value = !isClicked.value;
 };
 
-
 const convertTimestamp = (timestamp) => {
   const dt = new Date(timestamp * 1000);
   const options = { hour: 'numeric', minute: 'numeric', hour12: true };
   return dt.toLocaleTimeString(undefined, options);
 };
 
-
 const matchMinutes = ref(0);
-
 const currentTimestamp = new Date().getTime() / 1000;
+const currentDate = new Date().toLocaleDateString();
 
 
 function stringMatchPlayedTimeMapping(newStatusId, kickOffTimestamp, startTime) {
+  if (newStatusId === 1) {
+    return convertTimestamp(startTime);
+  }
   if (newStatusId === 2) {
     if (kickOffTimestamp > 0) {
       return Math.floor(matchMinutes.value = (currentTimestamp - kickOffTimestamp) / 60 + 1);
@@ -214,8 +284,6 @@ function stringMatchPlayedTimeMapping(newStatusId, kickOffTimestamp, startTime) 
     else {
       return Math.floor(matchMinutes.value = (currentTimestamp - startTime) / 60 + 1);
     }
-  } else if (newStatusId === 3) {
-    return "HT";
   } else if (newStatusId === 4) {
     if (kickOffTimestamp > 0) {
       return Math.floor(matchMinutes.value = (currentTimestamp - kickOffTimestamp) / 60 + 45 + 1);
@@ -239,10 +307,6 @@ function stringMatchPlayedTimeMapping(newStatusId, kickOffTimestamp, startTime) 
   }
 
 };
-
-
-
-
 
 const Scores = ref([]);
 
@@ -285,20 +349,10 @@ const generateScoreScenarios = (homeScores, awayScores) => {
   return result;
 };
 
-// matchData.value.forEach((match) => {
-//   const scenarios = generateScoreScenarios(match.home_scores, match.away_scores);
-//   Scores.value.push(...scenarios);
-// });
-
-// Now, Scores should contain an array of different score scenarios
-// console.log(Scores.value);
-
 matchData.value.forEach((match) => {
   const scenarios = generateScoreScenarios(match.home_scores, match.away_scores);
   Scores.value.push(...scenarios);
 });
-
-
 
 const getFirstName = (fullName) => {
   // Split the string using a regular expression that matches either a space or a hyphen
@@ -310,13 +364,16 @@ onMounted(() => {
   convertTimestamp();
   stringMatchPlayedTimeMapping();
   generateScoreScenarios();
+
 });
-
-
 
 </script>
 
 <style scoped>
+.cls-1 {
+  fill: #0084d8;
+}
+
 .active {
   background-color: blue;
   color: #fff;
@@ -325,17 +382,17 @@ onMounted(() => {
 .index-r {
   background-color: #fff;
   border-radius: 4px;
-  box-sizing: border-box;
   padding: 20px 16px;
 }
 
 .right-box .screen-header {
-  font-family: Rubik-Medium, Rubik;
+  font-family: Noto Sans, Regular;
   align-items: center;
   position: relative;
   display: flex;
-  z-index: 2;
+  /* z-index: 2; */
   margin-bottom: 20px;
+  font-weight: 500;
 }
 
 .right-box .screen-header .s-h-right-box {
@@ -346,5 +403,11 @@ onMounted(() => {
   font-size: 0;
   min-width: 0;
   flex: 1;
-}</style>
+}
+
+.screen-header button {
+  border: 1px solid #797E87;
+  opacity: 1;
+}
+</style>
   
