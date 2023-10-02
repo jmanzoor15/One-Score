@@ -3,10 +3,18 @@ export default defineNuxtConfig({
   runtimeConfig: {
     API_BASE_URL: process.env.API_BASE_URL,
     token: process.env.API_SECRET_KEY,
-
+     
     public: {
       API_BASE_URL: process.env.API_BASE_URL,
       token: process.env.API_SECRET_KEY,
+
+    FB_API_KEY: process.env.FB_API_KEY,
+    FB_AUTH_DOMAIN: process.env.FB_AUTH_DOMAIN,
+    FB_PROJECT_ID: process.env.FB_PROJECT_ID,
+    FB_STORAGE_BUCKET: process.env.FB_STORAGE_BUCKET,
+    FB_MESSAGING_SENDER_ID: process.env.FB_MESSAGING_SENDER_ID,
+    FB_APP_ID: process.env.FB_APP_ID,
+    FB_MEASUREMENT_ID:  process.env.FB_MEASUREMENT_ID,
     },
   },
   devtools: { enabled: true },
@@ -17,7 +25,8 @@ export default defineNuxtConfig({
 plugins: [
   {
       src:'~/plugins/v-calendar', mode: 'client'
-  }
+  },
+
 ],
 
 

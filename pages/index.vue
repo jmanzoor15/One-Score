@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div>{{ Services.referer }}
     <Header @language-selected="handleLanguageChange" :match="match" :search="search" />
     <div class="w100 view ">
       <div class="page-content-box max-w-full mx-auto ">
@@ -25,9 +25,23 @@
 </template>
 
 <script setup>
+import Services from '~/services'
 import { DatePicker } from 'v-calendar';
 const date = ref(new Date());
 const lang = ref('en');
+
+
+const nuxtApp = useNuxtApp()
+const remoteConfig = nuxtApp.$remoteConfig
+
+// }
+
+console.log('remoteConfig',remoteConfig)
+// const baseUrl = remoteConfig.getString('baseUrl');
+// console.log('Remote Config baseUrl:', baseUrl);
+
+
+
 
 const handleLanguageChange = (language) => {
   console.log('Changing language to:', language);
