@@ -194,47 +194,40 @@
                     </div>
                 </div>
                 <div class="border-[1px] mt-[40px]"></div>
-                <div class="matches  flex items-flex-start justify-between   p-4">
+                <div class="matches  flex items-start justify-between   p-4 ">
                     <!-- Flex Items -->
-                    <div class="flex justify-center items-start text-gray-500  text-[12px] h-[]">
-                        <ul>
-                            <b class="text-[#191919] text-[17px]">Next matches</b>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Leicester city - Arsenal</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Crystal palace - Liverpool</li>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                        </ul>
+                    <div class="flex flex-col justify-center items-start text-gray-500 text-[12px]  ">
+                                <b class="text-[#191919] text-[17px]">Next Matches</b>
+                                <ul v-for="(match, index) in nextMatches1" :key="index">
+                                    <li v-if="match.home_team">
+                                    {{ match.home_team.name }} -
+                                    {{ match.away_team.name }}
+                                    </li>
+                                </ul>
+                                </div>
+                    <div class="flex  flex-col  justify-center items-start text-gray-500  mt-[26px] text-[12px]  ">
+                        <ul v-for="(match, index) in nextMatches2" :key="index">
+                                <li v-if="match.home_team">
+                                {{ match.home_team.name}} - {{ match.away_team.name }}
+                            </li>
+                            </ul>
                     </div>
-                    <div class="flex justify-center items-start text-gray-500  mt-4 text-[12px] ">
-                        <ul>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Leicester city - Arsenal</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Crystal palace - Liverpool</li>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Leicester city - Arsenal</li>
-                            <li>Fulham - Wolverhampton Wanderers</li>
-                            <li>Crystal palace - Liverpool</li>
-                            <li>New York Knicks - New Orleans Pelicans</li>
-                            
+                    <div class="flex flex-col justify-center items-start text-gray-500 text-[12px] ">
+                                <b class="text-[#191919] text-[17px]">Football</b>
+                                <ul v-for="(league, index) in topleague_football_web" :key="index">
+                                    <li >
+                                    {{ league.name }} -{{ league.seasons[0].name }}
+                                    </li>
+                                </ul>
+                                </div>
 
-                        </ul>
-                    </div>
-                    <div class="flex justify-center items-start text-gray-500  text-[12px] ">
-                        <ul>
-                            <b class="text-[#191919] text-[17px]">Football</b>
-                            <li  v-for="(match, index) in Footballmatches" :key="index">{{ match.home_team.name}} - {{ match.away_team.name }}</li>
-                        </ul>
-                    </div>
-                    <div class="flex justify-center items-start text-gray-500  text-[12px]">
-                        <ul>
-                            <b class="mt-[20px] text-[#191919] text-[17px]">Basketball</b>
-                            <li v-for="(match, index) in Basketballmatches" :key="index">{{ match.home_team.name}} - {{ match.away_team.name }}</li>
+                    <div class="flex flex-col justify-center items-start text-gray-500  text-[12px] ">
+                        <b class="text-[#191919] text-[17px]">Basketball</b>
+                            <ul v-for="(league, index) in topleague_basketball_web" :key="index">
+                                <li>
+                                     {{ league.name.split(" ")[0] }} -{{ league.seasons[0].name }}
+                                    </li>
+                          
                         </ul>
                     </div>
                 </div>
@@ -329,17 +322,58 @@
                 </label>
                 <b class="ml-2 mt-1">Switch to dark mode</b>
             </div>
-
         </div>
     </div>
 </div></template>
 
 <script setup>
-const {data : football} = await useFetch('/api/football_matches');
-const {data : basketball} = await useFetch('/api/basketball_matches');
+import { getValue, fetchAndActivate } from 'firebase/remote-config';
 
-const Footballmatches = computed(() => football.value.slice(0, 5));
-const Basketballmatches = computed(() => basketball.value.slice(0, 5));
+const nuxtApp = useNuxtApp();
+const remoteConfig = nuxtApp.$remoteConfig;
+
+const topleague_football_web = ref([]);
+const topleague_basketball_web = ref([]);
+
+    fetchAndActivate(remoteConfig)
+      .then(() => {
+       const value1 = getValue(remoteConfig, 'topleague_football_web');
+       topleague_football_web.value = JSON.parse(value1._value).data;
+       const value2 = getValue(remoteConfig, 'topleague_basketball_web');
+       topleague_basketball_web.value = JSON.parse(value2._value).data;
+       console.log(  topleague_basketball_web.value)
+    })
+      .catch((err) => {
+        // Handle any errors here
+      });  
+const props = defineProps({
+  data: Object,
+});
+
+const nextMatches = ref([]);
+
+watch(() => props.data, (newData) => {
+  if (newData) {
+    nextMatches.value = newData;
+  } else {
+    nextMatches.value = [];
+  }
+});
+
+const UpcomingMatches = computed(() => {
+  const upcomingMatches = nextMatches.value.filter((match) => match.status === 1);
+
+  if (upcomingMatches.length > 0) {
+    return upcomingMatches;
+  } else {
+    return "No upcoming matches";
+  }
+});
+
+const nextMatches1 = computed(() => UpcomingMatches.value.slice(0, 10));
+const nextMatches2 = computed(() => UpcomingMatches.value.slice(10, 20));
+
+
 </script>
 
 <style lang="scss" scoped>.cls-1 {

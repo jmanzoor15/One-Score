@@ -3,7 +3,7 @@
     <Header @language-selected="handleLanguageChange" />
     <div class="w100 view">
       <div class="page-content-box max-w-full mx-auto">
-        <HotMatches :data="match" />
+        <HotMatches :data="match" :topleague="topleague_basketball" />
         <div class="flex mt-[16px]">
           <Sidebar :data="sidebar" />
           <MatchList :data="match" :date="date" />
@@ -26,15 +26,32 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <Footer :data="match" />
   </div>
 </template>
 
 <script setup>
+import { getValue, fetchAndActivate } from 'firebase/remote-config';
 import { DatePicker } from "v-calendar";
 const date = ref(new Date());
 const lang = ref("en");
 
+
+const topleague_basketball = ref({});
+const nuxtApp = useNuxtApp();
+const remoteConfig = nuxtApp.$remoteConfig;
+
+
+  fetchAndActivate(remoteConfig)
+      .then(() => {
+   const value = getValue(remoteConfig, 'topleague_basketball');
+   topleague_basketball.value = JSON.parse(value._value).data;
+
+       console.log(  topleague_basketball.value)
+      })
+      .catch((err) => {
+        // Handle any errors here
+      });
 const handleLanguageChange = (language) => {
   console.log("Changing language to:", language);
   lang.value = language;
@@ -67,10 +84,12 @@ watch([lang, date], async ([newLang, newDate], [oldLang, oldDate]) => {
   }
 });
 
+
+
 const fetchData = async (newLang) => {
-  const year = date.value.getFullYear();
-  const month = String(date.value.getMonth() + 1).padStart(2, "0");
-  const day = String(date.value.getDate()).padStart(2, "0");
+   const year = date.value.getFullYear();
+  const month = String(date.value.getMonth() + 1).padStart(2, '0');
+  const day = String(date.value.getDate()).padStart(2, '0');
   const formattedDate = `${year}-${month}-${day}`;
   const langToUse = newLang || "en";
 

@@ -1,9 +1,9 @@
-<template >
-  <div class="flex-col items-center justify-between w-[1215px] my-[16px]  h-[100px]" v-if="matchData.length > 0">
+<template > 
+  <div class="flex-col items-center justify-between w-[1215px] my-[16px]  h-[100px]" v-if="filteredMatchData.length > 0">
     <span class="font-semibold text-lg  text-[#191919]  w-[382px] h-[23px]">Hot Matches</span>
     <div class="flex items-center justify-between">
       <!-- Previous Button -->
-      <div>
+      <div> 
         <button @click="prevSlide" class="relative bottom-2">
           <svg id="arrow_left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
             <rect id="Rectangle_897" data-name="Rectangle 897" width="24" height="24" fill="none" />
@@ -18,13 +18,13 @@
         <div ref="slider" class="flex space-x-4 transition-transform transform"
           :style="`transform: translateX(${translateX}px);`">
           <!-- Repeat this div for each car -->
-          <div class="flex flex-col items-center justify-between relative right-6 " v-for="(match, index) in matchData"
-            :key="index">
-            <div
+          <div class="flex flex-col items-center justify-between relative right-6 " v-for="match in filteredMatchData" :key="match.uuid">
+          
+            <div 
               class="w-[136px] h-[50px] flex-none border-solid border-[1px] border-[#C9CBCF] rounded-full flex items-center justify-center relative left-6">
               <img v-if="match.home_team && match.home_team.logo" :src="match.home_team.logo"
                 class="h-[20px] w-[20px]  rounded-full " />
-              <span class="mx-2"> {{ match.home_scores[0] }} </span> -
+              <span class="mx-2"> {{ match.home_scores[0] }}  </span> - 
               <span class="mx-2"> {{ match.away_scores[0] }} </span>
               <img v-if="match.away_team && match.away_team.logo" :src="match.away_team.logo"
                 class="h-[20px] w-[20px] rounded-full" />
@@ -58,6 +58,8 @@
 <script setup>
 const props = defineProps({
   data: Object,
+  currentRoute: String,
+  topleague: Object
 });
 const matchData = ref([]);
 
@@ -69,6 +71,29 @@ watch(() => props.data, (newData) => {
   }
 });
 
+const topleagues = ref([]);
+
+watch(() => props.topleague, (newLeague) => {
+  if (newLeague) {
+    topleagues.value = newLeague;
+  } else {
+    topleagues.value = [];
+  }
+});
+
+
+// Filter matchData based on topleague_football UUIDs
+const filteredMatchData = computed(() => {
+  if (topleagues && topleagues.value.length > 0 ) {
+    return matchData.value.filter((match) =>
+    topleagues.value.includes( match.competition.uuid )
+    );
+  } else {
+    return matchData.value;
+  }
+});
+
+      
 const translateX = ref(0);
 const currentIndex = ref(0);
 const carWidth = 20;
@@ -98,6 +123,7 @@ const nextSlide = () => {
 };
 
 function getStatus(matchStatus) {
+  console.log(matchStatus,'matchStatus')
   if (matchStatus === 1) {
     return "upcoming";
   } else if (matchStatus === 2) {

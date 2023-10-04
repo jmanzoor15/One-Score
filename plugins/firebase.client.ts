@@ -3,7 +3,8 @@ import { getAuth } from "firebase/auth"
 import { fetchAndActivate, getRemoteConfig, getValue, } from "firebase/remote-config"
 import Services from '~/services'
 
-export default defineNuxtPlugin(nuxtApp => {
+
+export default defineNuxtPlugin((nuxtApp) => {
     const config = useRuntimeConfig()
 
     const firebaseConfig = {
@@ -35,32 +36,8 @@ export default defineNuxtPlugin(nuxtApp => {
         fetchTimeoutMillis: 60 * 1000, // 1 minute in milliseconds
         minimumFetchIntervalMillis: 15 * 60 * 1000, // 15 minutes in milliseconds
     }
-
-  console.log('Services',Services.baseUrl)
   
-            // Set the default configuration using the imported Services object
-            remoteConfig.defaultConfig = Services;
-
-
-    // remoteConfig.defaultConfig = {
-    //     "newsBaseUrl ": 'jamck'
-    //   };
-
-   fetchAndActivate(remoteConfig)
-      .then(() => {
-        // Loop through the keys of Services and fetch values from remoteConfig
-        for (const key in Services) {
-          if (Services.hasOwnProperty(key)) {
-            const value = getValue(remoteConfig, key);
-
-            // Handle the value as needed
-            console.log(`${key}:`, value);
-          }
-        }
-      })
-      .catch((err) => {
-        // Handle any errors here
-      });
+        remoteConfig.defaultConfig = Services;
 
 
 })

@@ -1,9 +1,9 @@
 <template>
-  <div>{{ Services.referer }}
+  <div>
     <Header @language-selected="handleLanguageChange" :match="match" :search="search" />
     <div class="w100 view ">
       <div class="page-content-box max-w-full mx-auto ">
-        <HotMatches :data="match" />
+        <HotMatches :data="match" :topleague="topleague_football" />
         <div class="flex mt-[16px] ">
           <Sidebar :data="sidebar" />
           <MatchList :data="match" :date="date" />
@@ -20,31 +20,37 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <Footer :data="match"  />
   </div>
 </template>
 
 <script setup>
-import Services from '~/services'
+import { getValue, fetchAndActivate } from 'firebase/remote-config';
 import { DatePicker } from 'v-calendar';
 const date = ref(new Date());
 const lang = ref('en');
 
 
-const nuxtApp = useNuxtApp()
-const remoteConfig = nuxtApp.$remoteConfig
+const nuxtApp = useNuxtApp();
+const remoteConfig = nuxtApp.$remoteConfig;
 
-// }
+const topleague_football = ref({});
 
-console.log('remoteConfig',remoteConfig)
-// const baseUrl = remoteConfig.getString('baseUrl');
-// console.log('Remote Config baseUrl:', baseUrl);
+  fetchAndActivate(remoteConfig)
+      .then(() => {
+   const value = getValue(remoteConfig, 'topleague_football');
+       topleague_football.value = JSON.parse(value._value).data;
+       
+      })
+      .catch((err) => {
+        // Handle any errors here
+      });
 
 
 
 
 const handleLanguageChange = (language) => {
-  console.log('Changing language to:', language);
+  // console.log('Changing language to:', language);
   lang.value = language;
   fetchData(language);
 };
@@ -87,7 +93,7 @@ const fetchData = async (newLang) => {
     const { data: competitionData } = await useFetch(`/api/football_competitionList?sport_id=1&lang=${langToUse}`);
 
     if (competitionData !== null) {
-      console.log('Fetched competition data:', langToUse);
+      // console.log('Fetched competition data:', langToUse);
       sidebar.value = competitionData.value;
       localStorage.setItem('sidebarData', JSON.stringify(competitionData.value));
     } else {
@@ -102,7 +108,7 @@ const fetchData = async (newLang) => {
     const { data: matchData } = await useFetch(`/api/football_matches?${formattedDate}&lang=${langToUse}`);
 
     if (matchData !== null && matchData.value !== null) {
-      console.log('Fetched match data:', langToUse);
+      // console.log('Fetched match data:', langToUse);
       match.value = matchData.value;
       localStorage.setItem('matchData', JSON.stringify(matchData.value));
     } else {
@@ -116,7 +122,7 @@ const fetchData = async (newLang) => {
     const { data: newsData } = await newsApi().getNewsFootball(newsLangToUse);
 
     if (newsData !== null && newsData.value !== null) {
-      console.log('Fetched news data:', langToUse);
+      // console.log('Fetched news data:', langToUse);
       newsUpdate.value = newsData.value;
       localStorage.setItem('newsData', JSON.stringify(newsData.value));
     } else {
@@ -130,7 +136,7 @@ const fetchData = async (newLang) => {
     const { data: searchData } = await useFetch(`/api/search?&lang=${langToUse}`)
 
     if (searchData !== null && searchData.value !== null) {
-      console.log('Fetched news data:', langToUse);
+      // console.log('Fetched news data:', langToUse);
       search.value = searchData.value;
       localStorage.setItem('searchData', JSON.stringify(searchData.value));
     } else {

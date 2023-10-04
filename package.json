@@ -20,6 +20,7 @@
     "@popperjs/core": "^2.11.8",
     "firebase": "^10.4.0",
     "jsdom": "^22.1.0",
+    "moment": "^2.29.4",
     "v-calendar": "^3.0.3"
   }
 }

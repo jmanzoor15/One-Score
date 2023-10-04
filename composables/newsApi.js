@@ -10,7 +10,7 @@ export default () => {
   };
 
   const getNewsFootball = async (lang1) => {
-    console.log('mylang:', lang1);
+    // console.log('mylang:', lang1);
     let query = `?lang=${lang1}&item_count=5&sport_id=1`;
     return get(query);
   };
