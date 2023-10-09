@@ -1,10 +1,11 @@
-<template > 
+<template >
+ <!-- {{ filteredMatchData.length  }}{{ currentIndex }} -->
   <div class="flex-col items-center justify-between w-[1215px] my-[16px]  h-[100px]" v-if="filteredMatchData.length > 0">
     <span class="font-semibold text-lg  text-[#191919]  w-[382px] h-[23px]">Hot Matches</span>
     <div class="flex items-center justify-between">
       <!-- Previous Button -->
       <div> 
-        <button @click="prevSlide" class="relative bottom-2">
+        <button @click="prevSlide( )" class="relative bottom-2">
           <svg id="arrow_left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
             <rect id="Rectangle_897" data-name="Rectangle 897" width="24" height="24" fill="none" />
             <path id="arrow_back_ios_FILL0_wght400_GRAD0_opsz48"
@@ -41,7 +42,7 @@
 
       <!-- Next Button -->
       <div>
-        <button @click="nextSlide" class="relative bottom-2 ml-3">
+        <button @click="nextSlide(filteredMatchData.length )" class="relative bottom-2 ml-3">
           <svg id="arrow_right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
             <rect id="Rectangle_897" data-name="Rectangle 897" width="24" height="24" fill="none" />
             <path id="arrow_back_ios_FILL0_wght400_GRAD0_opsz48"
@@ -96,26 +97,25 @@ const filteredMatchData = computed(() => {
       
 const translateX = ref(0);
 const currentIndex = ref(0);
-const carWidth = 20;
-const numCars = matchData.value.length;
-const carsPerPage = 10;
-const slideDistance = carWidth * carsPerPage;
+const slideWidth = 150;
+const slidePerPage = 1;
+const slideDistance = slideWidth * slidePerPage;
 
 const prevSlide = () => {
   if (currentIndex.value > 0) {
     currentIndex.value--;
-    if (currentIndex.value % carsPerPage === 0) {
+    if (currentIndex.value % slidePerPage === 0) {
       // Check if the current index is a multiple of carsPerPage
       translateX.value += slideDistance;
     }
   }
 };
 
-const nextSlide = () => {
-  console.log("jay")
-  if (currentIndex.value < numCars - carsPerPage) {
+const nextSlide = (numCars) => {
+  console.log(numCars)
+  if (currentIndex.value < numCars - slidePerPage) {
     currentIndex.value++;
-    if ((currentIndex.value - carsPerPage + 1) % carsPerPage === 0) {
+    if ((currentIndex.value - slidePerPage + 1) % slidePerPage === 0) {
       // Check if the current index (adjusted for carsPerPage) is a multiple of carsPerPage
       translateX.value -= slideDistance;
     }

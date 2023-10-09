@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
    
 
     const { data } = await $fetch(
-      `${Url}/competitionlist?sport_id=${body.sport_id}&lang=${body.lang}&auth=${token}`
+      `https://livedata.sportsfeed.pro/competitionlist?sport_id=2&lang=${body.lang}&auth=${body.authToken}`
     );
   
     return data; 

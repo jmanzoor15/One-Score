@@ -28,7 +28,7 @@
                 <button @click="selectedCountry = country; toggleCountry(index)"
                   class="inline-flex  px-2 py-2  text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 w-[260px]">
                   <div>
-                    <img :src="country.logo" alt="Away Team Logo"
+                    <img :src="country.logo" 
                       class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
                   </div>
                   <div class="flex flex-grow justify-between">
@@ -45,7 +45,7 @@
               <div v-show="isClicked">
                 <ul v-if="selectedCountry === country">
                   <li v-for="(competition, cIndex) in country.competition" :key="cIndex" class="relative left-2 p-2 flex">
-                    <img :src="competition.logo" alt="Away Team Logo"
+                    <img :src="competition.logo" 
                       class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
                     {{ getFirstName(competition.name) }}
 

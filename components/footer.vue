@@ -197,37 +197,37 @@
                 <div class="matches  flex items-start justify-between   p-4 ">
                     <!-- Flex Items -->
                     <div class="flex flex-col justify-center items-start text-gray-500 text-[12px]  ">
-                                <b class="text-[#191919] text-[17px]">Next Matches</b>
-                                <ul v-for="(match, index) in nextMatches1" :key="index">
-                                    <li v-if="match.home_team">
-                                    {{ match.home_team.name }} -
-                                    {{ match.away_team.name }}
-                                    </li>
-                                </ul>
-                                </div>
+                        <b class="text-[#191919] text-[17px]">Next Matches</b>
+                        <ul v-for="(match, index) in nextMatches1" :key="index">
+                            <li v-if="match.home_team">
+                                {{ match.home_team.name }} -
+                                {{ match.away_team.name }}
+                            </li>
+                        </ul>
+                    </div>
                     <div class="flex  flex-col  justify-center items-start text-gray-500  mt-[26px] text-[12px]  ">
                         <ul v-for="(match, index) in nextMatches2" :key="index">
-                                <li v-if="match.home_team">
-                                {{ match.home_team.name}} - {{ match.away_team.name }}
+                            <li v-if="match.home_team">
+                                {{ match.home_team.name }} - {{ match.away_team.name }}
                             </li>
-                            </ul>
+                        </ul>
                     </div>
                     <div class="flex flex-col justify-center items-start text-gray-500 text-[12px] ">
-                                <b class="text-[#191919] text-[17px]">Football</b>
-                                <ul v-for="(league, index) in topleague_football_web" :key="index">
-                                    <li >
-                                    {{ league.name }} -{{ league.seasons[0].name }}
-                                    </li>
-                                </ul>
-                                </div>
+                        <b class="text-[#191919] text-[17px]">Football</b>
+                        <ul v-for="(league, index) in topleague_football_web" :key="index">
+                            <li>
+                                {{ league.name }} -{{ league.seasons[0].name }}
+                            </li>
+                        </ul>
+                    </div>
 
                     <div class="flex flex-col justify-center items-start text-gray-500  text-[12px] ">
                         <b class="text-[#191919] text-[17px]">Basketball</b>
-                            <ul v-for="(league, index) in topleague_basketball_web" :key="index">
-                                <li>
-                                     {{ league.name.split(" ")[0] }} -{{ league.seasons[0].name }}
-                                    </li>
-                          
+                        <ul v-for="(league, index) in topleague_basketball_web" :key="index">
+                            <li>
+                                {{ league.name.split(" ")[0] }} -{{ league.seasons[0].name }}
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -264,67 +264,68 @@
                                         <path id="Path_932" data-name="Path 932"
                                             d="M116.174,110.569a5.6,5.6,0,1,1-5.586,5.534A5.59,5.59,0,0,1,116.174,110.569Zm.006,1.949a3.648,3.648,0,1,0,3.634,3.647,3.653,3.653,0,0,0-3.634-3.647Z"
                                             transform="translate(-104.66 -104.652)" fill="#494c52" />
-                                    <path id="Path_933" data-name="Path 933"
-                                        d="M323.118,81.646a1.462,1.462,0,1,1,1.441-1.5,1.467,1.467,0,0,1-1.441,1.5Z"
-                                        transform="translate(-305.478 -74.768)" fill="#494c52" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </li>
-                    <li class="relative">
-                        <div
-                            class="w-[48px] h-[48px]  rounded-full flex items-center justify-center bg-gray-200 border-2">
-                            <svg id="Component_413_2" data-name="Component 413 – 2" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="23.998" viewBox="0 0 24 23.998">
-                                <g id="Layer_1" data-name="Layer 1" transform="translate(0 3)">
-                                    <g id="Group_6083" data-name="Group 6083">
-                                        <path id="Path_934" data-name="Path 934"
-                                            d="M0,16.006a11,11,0,0,0,5.159-.753,9.251,9.251,0,0,0,2.075-1.162,7.1,7.1,0,0,1-1.2-.178,5.214,5.214,0,0,1-1.113-.421,4.955,4.955,0,0,1-.979-.664,4.659,4.659,0,0,1-.768-.852,4.3,4.3,0,0,1-.53-1.025c.055,0,.1,0,.137.009a5.3,5.3,0,0,0,1.952-.074.332.332,0,0,0,.1-.04A4.958,4.958,0,0,1,1.473,8.511,4.157,4.157,0,0,1,.9,6.352a5.8,5.8,0,0,0,1.084.4A4.688,4.688,0,0,0,3.108,6.9,4.463,4.463,0,0,1,.941,2.982,4.1,4.1,0,0,1,1.594.849,14.313,14.313,0,0,0,8.923,5.181a14.52,14.52,0,0,0,2.893.409c-.014-.08-.024-.144-.037-.208A4.539,4.539,0,0,1,15.509.131a5.118,5.118,0,0,1,4.658,1.231.2.2,0,0,0,.2.06A10.615,10.615,0,0,0,23.233.429c.038-.02.077-.038.143-.07-.02.059-.031.1-.045.131a4.61,4.61,0,0,1-1.978,2.27.387.387,0,0,0-.1.078A10.127,10.127,0,0,0,24,2.172a.208.208,0,0,1-.062.109A9.492,9.492,0,0,1,21.7,4.394a.218.218,0,0,0-.111.222,9.584,9.584,0,0,1-.027,1.351,11.62,11.62,0,0,1-.416,2.3,13.015,13.015,0,0,1-3.333,5.68,13.482,13.482,0,0,1-6.821,3.691,16.536,16.536,0,0,1-1.9.293,16.266,16.266,0,0,1-2.3.052A14.721,14.721,0,0,1,1.815,16.9a14.49,14.49,0,0,1-1.706-.828c-.037-.021-.073-.043-.109-.065Zm13.323.156h.029c0-.018,0-.035,0-.054h-.02l-.005.053Z"
-                                            transform="translate(0 -0.003)" />
-                                        <path id="Path_935" data-name="Path 935"
-                                            d="M234.67,304.029l.005-.059h.021c0,.02,0,.04,0,.06h-.03Z"
-                                            transform="translate(-221.347 -288.384)" />
+                                        <path id="Path_933" data-name="Path 933"
+                                            d="M323.118,81.646a1.462,1.462,0,1,1,1.441-1.5,1.467,1.467,0,0,1-1.441,1.5Z"
+                                            transform="translate(-305.478 -74.768)" fill="#494c52" />
                                     </g>
-                                </g>
-                                <rect id="Rectangle_1693" data-name="Rectangle 1693" width="23.998" height="23.998"
-                                    fill="none" />
-                            </svg>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            <div class="border-[1px] mt-[60px]"></div>
+                                </svg>
+
+                            </div>
+                        </li>
+                        <li class="relative">
+                            <div
+                                class="w-[48px] h-[48px]  rounded-full flex items-center justify-center bg-gray-200 border-2">
+                                <svg id="Component_413_2" data-name="Component 413 – 2" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="23.998" viewBox="0 0 24 23.998">
+                                    <g id="Layer_1" data-name="Layer 1" transform="translate(0 3)">
+                                        <g id="Group_6083" data-name="Group 6083">
+                                            <path id="Path_934" data-name="Path 934"
+                                                d="M0,16.006a11,11,0,0,0,5.159-.753,9.251,9.251,0,0,0,2.075-1.162,7.1,7.1,0,0,1-1.2-.178,5.214,5.214,0,0,1-1.113-.421,4.955,4.955,0,0,1-.979-.664,4.659,4.659,0,0,1-.768-.852,4.3,4.3,0,0,1-.53-1.025c.055,0,.1,0,.137.009a5.3,5.3,0,0,0,1.952-.074.332.332,0,0,0,.1-.04A4.958,4.958,0,0,1,1.473,8.511,4.157,4.157,0,0,1,.9,6.352a5.8,5.8,0,0,0,1.084.4A4.688,4.688,0,0,0,3.108,6.9,4.463,4.463,0,0,1,.941,2.982,4.1,4.1,0,0,1,1.594.849,14.313,14.313,0,0,0,8.923,5.181a14.52,14.52,0,0,0,2.893.409c-.014-.08-.024-.144-.037-.208A4.539,4.539,0,0,1,15.509.131a5.118,5.118,0,0,1,4.658,1.231.2.2,0,0,0,.2.06A10.615,10.615,0,0,0,23.233.429c.038-.02.077-.038.143-.07-.02.059-.031.1-.045.131a4.61,4.61,0,0,1-1.978,2.27.387.387,0,0,0-.1.078A10.127,10.127,0,0,0,24,2.172a.208.208,0,0,1-.062.109A9.492,9.492,0,0,1,21.7,4.394a.218.218,0,0,0-.111.222,9.584,9.584,0,0,1-.027,1.351,11.62,11.62,0,0,1-.416,2.3,13.015,13.015,0,0,1-3.333,5.68,13.482,13.482,0,0,1-6.821,3.691,16.536,16.536,0,0,1-1.9.293,16.266,16.266,0,0,1-2.3.052A14.721,14.721,0,0,1,1.815,16.9a14.49,14.49,0,0,1-1.706-.828c-.037-.021-.073-.043-.109-.065Zm13.323.156h.029c0-.018,0-.035,0-.054h-.02l-.005.053Z"
+                                                transform="translate(0 -0.003)" />
+                                            <path id="Path_935" data-name="Path 935"
+                                                d="M234.67,304.029l.005-.059h.021c0,.02,0,.04,0,.06h-.03Z"
+                                                transform="translate(-221.347 -288.384)" />
+                                        </g>
+                                    </g>
+                                    <rect id="Rectangle_1693" data-name="Rectangle 1693" width="23.998" height="23.998"
+                                        fill="none" />
+                                </svg>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="border-[1px] mt-[60px]"></div>
 
 
-            <div class="felx-col justify-center  mt-[60px]">
-                <div class="flex justify-center gap-4">
-                    <a href="">Terms of Service&nbsp;&nbsp; |</a>
-                    <a href="">Privacy policy&nbsp;&nbsp; |</a>
-                    <a href="">Send Feedback</a>
-                </div>
-            </div>
-            <div class="felx-col justify-center mt-[10px] ">
-                <div class="flex justify-center gap-4">
-                    <a href="">Terms of Service&nbsp;&nbsp; |</a>
-                    <a href="">Privacy policy</a>
-
-                </div>
-            </div>
-            <div class="flex mt-[10px]">
-                <label for="toggleB" class="flex items-center cursor-pointer">
-                    <!-- toggle -->
-                    <div class="relative">
-                        <input type="checkbox" id="toggleB" class="sr-only">
-                        <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
-                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                <div class="felx-col justify-center  mt-[60px]">
+                    <div class="flex justify-center gap-4">
+                        <a href="">Terms of Service&nbsp;&nbsp; |</a>
+                        <a href="">Privacy policy&nbsp;&nbsp; |</a>
+                        <a href="">Send Feedback</a>
                     </div>
-                </label>
-                <b class="ml-2 mt-1">Switch to dark mode</b>
+                </div>
+                <div class="felx-col justify-center mt-[10px] ">
+                    <div class="flex justify-center gap-4">
+                        <a href="">Terms of Service&nbsp;&nbsp; |</a>
+                        <a href="">Privacy policy</a>
+
+                    </div>
+                </div>
+                <div class="flex mt-[10px]">
+                    <label for="toggleB" class="flex items-center cursor-pointer">
+                        <!-- toggle -->
+                        <div class="relative">
+                            <input type="checkbox" id="toggleB" class="sr-only">
+                            <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                            <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                        </div>
+                    </label>
+                    <b class="ml-2 mt-1">Switch to dark mode</b>
+                </div>
             </div>
         </div>
     </div>
-</div></template>
+</template>
 
 <script setup>
 import { getValue, fetchAndActivate } from 'firebase/remote-config';
@@ -335,39 +336,39 @@ const remoteConfig = nuxtApp.$remoteConfig;
 const topleague_football_web = ref([]);
 const topleague_basketball_web = ref([]);
 
-    fetchAndActivate(remoteConfig)
-      .then(() => {
-       const value1 = getValue(remoteConfig, 'topleague_football_web');
-       topleague_football_web.value = JSON.parse(value1._value).data;
-       const value2 = getValue(remoteConfig, 'topleague_basketball_web');
-       topleague_basketball_web.value = JSON.parse(value2._value).data;
-       console.log(  topleague_basketball_web.value)
+fetchAndActivate(remoteConfig)
+    .then(() => {
+        const value1 = getValue(remoteConfig, 'topleague_football_web');
+        topleague_football_web.value = JSON.parse(value1._value).data;
+        const value2 = getValue(remoteConfig, 'topleague_basketball_web');
+        topleague_basketball_web.value = JSON.parse(value2._value).data;
+        //    console.log(  topleague_basketball_web.value)
     })
-      .catch((err) => {
+    .catch((err) => {
         // Handle any errors here
-      });  
+    });
 const props = defineProps({
-  data: Object,
+    data: Object,
 });
 
 const nextMatches = ref([]);
 
 watch(() => props.data, (newData) => {
-  if (newData) {
-    nextMatches.value = newData;
-  } else {
-    nextMatches.value = [];
-  }
+    if (newData) {
+        nextMatches.value = newData;
+    } else {
+        nextMatches.value = [];
+    }
 });
 
 const UpcomingMatches = computed(() => {
-  const upcomingMatches = nextMatches.value.filter((match) => match.status === 1);
+    const upcomingMatches = nextMatches.value.filter((match) => match.status === 1);
 
-  if (upcomingMatches.length > 0) {
-    return upcomingMatches;
-  } else {
-    return "No upcoming matches";
-  }
+    if (upcomingMatches.length > 0) {
+        return upcomingMatches;
+    } else {
+        return "No upcoming matches";
+    }
 });
 
 const nextMatches1 = computed(() => UpcomingMatches.value.slice(0, 10));
@@ -376,7 +377,8 @@ const nextMatches2 = computed(() => UpcomingMatches.value.slice(10, 20));
 
 </script>
 
-<style lang="scss" scoped>.cls-1 {
+<style lang="scss" scoped>
+.cls-1 {
     fill: #0081db;
 }
 
@@ -384,11 +386,11 @@ input:checked~.dot {
     transform: translateX(100%);
     background-color: #48bb78;
 }
-.matches li{
- 
-color: var(--neutral-variant-30);
-text-align: left;
-font: normal normal normal 14px/19px Noto Sans;
-margin: 8px 0px 0px 0px;
-}
-</style>
+
+.matches li {
+
+    color: var(--neutral-variant-30);
+    text-align: left;
+    font: normal normal normal 14px/19px Noto Sans;
+    margin: 8px 0px 0px 0px;
+}</style>

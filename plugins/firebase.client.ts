@@ -1,12 +1,12 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from "firebase/auth"
-import { fetchAndActivate, getRemoteConfig, getValue, } from "firebase/remote-config"
+import { getRemoteConfig, getValue, fetchAndActivate } from "firebase/remote-config"
 import Services from '~/services'
 
 
 export default defineNuxtPlugin((nuxtApp) => {
     const config = useRuntimeConfig()
-
+        //  console.log('config',config)
     const firebaseConfig = {
         
         apiKey: config.public.FB_API_KEY,
@@ -22,6 +22,25 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const auth = getAuth(app)
     const remoteConfig = getRemoteConfig(app);
+
+    fetchAndActivate(remoteConfig)
+    .then(() => {
+      // Loop through the keys of Services and fetch values from remoteConfig
+      for (const key in Services) {
+        if (Services.hasOwnProperty(key)) {
+          const value = getValue(remoteConfig, key);
+  
+          // Handle the value as needed
+          // console.log(`${key}:`, value);
+  
+          // Attach the value to the Nuxt app context
+          nuxtApp[key] = value;
+        }
+      }
+    })  
+    .catch((err) => {
+      // Handle any errors here
+    });
 
     
     nuxtApp.vueApp.provide('auth', auth)

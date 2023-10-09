@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     const isLive = formattedDate === queryValue;
     const liveValue = isLive ? 'true' : 'false';
     
-    const { data } = await $fetch(`${Url}/matchlist?auth=${token}&date=${queryValue}&live=${liveValue}&sport_id=2&utc_offset=4&lang=${query.lang} `);
+    const { data } = await $fetch(`https://livedata.sportsfeed.pro/matchlist?auth=${query.authToken}&date=${queryValue}&live=${liveValue}&sport_id=2&utc_offset=4&lang=${query.lang} `);
 
    return data
   
