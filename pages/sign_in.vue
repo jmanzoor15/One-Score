@@ -9,7 +9,7 @@
         <p class="text-center text-[#494C52] text-[14px] mb-6">
           We are excited to have you
         </p>
-        <button
+        <button @click="signInWithGoogle()"
           class="flex items-center w-[320px] h-[48px] border-2 solid rounded-full border-gray-300 mb-7"
         >
           <div
@@ -214,6 +214,24 @@
   <Footer />
 </template>
 
-<script setup></script>
+<script setup>
+import {getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+const signInWithGoogle  = () =>{
+  const nuxtApp = useNuxtApp();
+  // const auth = nuxtApp.$auth;
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(getAuth(), provider)
+  .then((result) => {
+    console.log(result);
+    router.push('');
+  }) 
+  .catch((error) =>{
+    console.error("Sign-in error:", error);
+  }) 
+}
+
+
+
+</script>
 
 <style lang="scss" scoped></style>

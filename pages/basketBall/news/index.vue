@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header @language-selected="handleLanguageChange" />
     <div>
       <div class="min-h-screen flex bg-white items-center justify-center">
         <div class="mx-4 my-4">
@@ -34,35 +34,145 @@
 </template>
     
 <script setup>
-const { data } = await newsApi().getAllNewsBasketball();
+import { getValue, fetchAndActivate } from 'firebase/remote-config';
+import moment from 'moment';
+import 'moment-timezone';
+import * as CryptoJS from 'crypto-js';
+
+
+
+const nuxtApp = useNuxtApp();
+const remoteConfig = nuxtApp.$remoteConfig;
+const api_auth = ref({});
+const lang = ref('en');
+const newsBaseUrl = ref('');
+const newsUpdate = ref([]);
+// const { data } = await newsApi().getAllNewsBasketball();
 const page = ref(1);
 const per_page = ref(12);
-const posts = ref([]);
+// const posts = ref([]);
 
-posts.value = data.value.data;
-console.log(data.value.data)
-const totalPages = ref(0);
-totalPages.value = Math.ceil(posts.value.length / per_page.value);
-const prevPage = computed(() => (page.value > 1 ? page.value - 1 : null));
-const nextPage = computed(() => (page.value < totalPages.value ? page.value + 1 : null));
+    /// generating auth token ////////
 
-const paginatedPosts = computed(() => {
-  const startIndex = (page.value - 1) * per_page.value;
-  const endIndex = startIndex + per_page.value;
-  return posts.value.slice(startIndex, endIndex);
-});
+    const authToken = ref('');
+                      
+                      const generateAuthToken = (api_auth) => {
+                      const user = api_auth.user;
+                      const hexCode = CryptoJS.MD5(user).toString();
+                      const code = api_auth.code;
+                      const secretKey = api_auth.secret;
+                      const now = moment.tz('Asia/Dubai').format('YYYYMMDDHH');
+                      const tokenFormula1 = `${hexCode}${secretKey}${code}${now}`;
+                      const token = CryptoJS.MD5(tokenFormula1).toString();
+                      console.log('token:', token);
+                      authToken.value = token;
+                    }
+    //   set data and language ///////////////////////////////////////////////////////////////////////////////////
 
-const prevPageHandler = () => {
-  if (page.value > 1) {
-    page.value--;
-  }
-};
+              
 
-const nextPageHandler = () => {
-  if (page.value < totalPages.value) {
-    page.value++;
-  }
-};
+          const handleLanguageChange = (language) => {
+            // console.log('Changing language to:', language);
+            lang.value = language;
+            fetchData(language);
+          };
+
+
+          if (process.client) {
+                  const storedLanguage = localStorage.getItem('selectedLanguage');
+                  if (storedLanguage !== null) {
+                    lang.value = storedLanguage;
+                  }
+                }
+
+          
+                          watch([lang], async ([newLang], [oldLang]) => {
+                if (newLang !== oldLang) {
+                  if (newLang) {
+                    if (typeof localStorage !== 'undefined') {
+                      localStorage.setItem('selectedLanguage', newLang);
+                    }
+                    fetchData(newLang);
+                  } else {
+                    console.error('Lang is not available');
+                  }
+                }
+              });
+
+
+
+          const fetchData = async (newLang) => {
+
+            const langToUse = newLang || 'en';
+
+            const newsLangToUse = newLang === 'zhs' || newLang === 'zht' ? 'cn' : newLang;
+              try {
+                const { data: newsData } = await useFetch(`/api/news_basketball?&lang=${newsLangToUse}&authToken=${authToken.value}&item_count=0`);
+
+                if (newsData !== null && newsData.value !== null) {
+                  // console.log('Fetched news data:', newsData.value);
+                  newsUpdate.value = newsData.value.data;
+                  localStorage.setItem('newsData', JSON.stringify(newsData.data));
+                  console.log('newsUpdate', newsUpdate.value);
+                } else {
+                  console.error('news data is null');
+                }
+              } catch (error) {
+                console.error('Error fetching news data:', error);
+              }
+
+          };
+          
+
+
+    onMounted(() => {
+      fetchAndActivate(remoteConfig)
+        .then(() => {
+          const value2 = getValue(remoteConfig, 'api_auth');
+          api_auth.value = JSON.parse(value2._value);
+          const value3 = getValue(remoteConfig, 'newsBaseUrl');
+          newsBaseUrl.value = value3._value
+          // Move generateAuthToken inside the then block
+          generateAuthToken(api_auth.value);
+
+          setTimeout(() => {
+            fetchData(lang.value);
+          }, 500);
+        })
+        .catch((err) => {
+          // Handle any errors here
+        });
+    });
+
+    // posts.value = newsUpdate.value
+    //   console.log("hjunaubd");
+    //   console.log('newsUpdate', newsUpdate.value);
+
+    //   // const totalPages = ref(0);
+    //   posts.value = newsUpdate;
+
+      const totalPages = computed(() => Math.ceil(newsUpdate.value.length / per_page.value));
+      console.log(totalPages.value)
+      const prevPage = computed(() => (page.value > 1 ? page.value - 1 : null));
+      const nextPage = computed(() => (page.value < totalPages.value ? page.value + 1 : null));
+
+      const paginatedPosts = computed(() => {
+        const startIndex = (page.value - 1) * per_page.value;
+        const endIndex = startIndex + per_page.value;
+        return newsUpdate.value.slice(startIndex, endIndex);
+      });
+
+      const prevPageHandler = () => {
+        if (page.value > 1) {
+          page.value--;
+        }
+      };
+
+      const nextPageHandler = () => {
+        if (page.value < totalPages.value) {
+          page.value++;
+        }
+      };
 </script>
     
 <style lang="scss" scoped></style>

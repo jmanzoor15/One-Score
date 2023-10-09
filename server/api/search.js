@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
     const token = useRuntimeConfig().token;
   
     const query = getQuery(event)
-    console.log('saerch',query)
+    // console.log('saerch',query)
   
     const { data } = await $fetch(
       `${Url}/search?auth=${token}&sport_id=1&keyword=Real M&lang=${query.lang}` );

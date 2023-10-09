@@ -1,7 +1,4 @@
 <template>
-  <!-- {{ selectedLanguage }} -->
-  <!-- {{search.teams[0].name}} -->
-  <!-- {{ filteredMatches }} -->
   <div class="top-0 left-0 flex justify-center items-center bg-white">
     <div
       class="header  top-0 left-0 flex justify-center items-center h-[100px] w-[1400px] opacity-100 bg-[#FFFFFF] bg-no-repeat bg-padding-box">
@@ -624,10 +621,10 @@ const searchQuery = ref('');
 // Filtered matches computed property
 const filteredMatches = computed(() => {
   const query = searchQuery.value.toLowerCase();
-  console.log(query)
+  // console.log(query)
   return props.match.filter((matchItem) => {
     return matchItem.status_name.toLowerCase().includes(query);
-    console.log(query)
+    // console.log(query)
   });
 });
 
@@ -900,7 +897,7 @@ const autoMode = () => {
   isLightModeSelected.value = false;
   isDarkModeSelected.value = false;
   localStorage.setItem('selectedMode', 'auto');
-  console.log('auto')
+  // console.log('auto')
 };
 
 const lightMode = () => {
@@ -908,7 +905,7 @@ const lightMode = () => {
   isLightModeSelected.value = true;
   isDarkModeSelected.value = false;
   localStorage.setItem('selectedMode', 'light');
-  console.log('light')
+  // console.log('light')
 };
 
 const darkMode = () => {
@@ -916,7 +913,7 @@ const darkMode = () => {
   isLightModeSelected.value = false;
   isDarkModeSelected.value = true;
   localStorage.setItem('selectedMode', 'dark');
-  console.log('dark')
+  // console.log('dark')
 };
 
 
