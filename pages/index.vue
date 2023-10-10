@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- <p>Count: {{ $store.state.count }}</p>
+    <button class="btn-primary"  @click="$store.commit('increment')">Increment</button> -->
     <!-- {{ match }} -->
      <!-- {{ newsUpdate }} -->
     <!-- <button @click="bbytesToString('�H����J`UWTH�������Hb��RJ����Hb���')">click</button> -->
@@ -87,18 +89,21 @@ const sidebar = ref([]);
 const newsUpdate = ref([]);
 const search = ref([]);
 
-watch([lang], async ([newLang], [oldLang]) => {
+watch([lang, date], async ([newLang, newDate], [oldLang, oldDate]) => {
   if (newLang !== oldLang) {
     if (newLang) {
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('selectedLanguage', newLang);
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem("selectedLanguage", newLang);
       }
       fetchData(newLang);
     } else {
-      console.error('Lang is not available');
+      console.error("Lang is not available");
     }
+  } else if (newDate !== oldDate) {
+    fetchData(newLang);
   }
 });
+
 
 const fetchData = async (newLang) => {
   const year = date.value.getFullYear();
@@ -123,7 +128,7 @@ const fetchData = async (newLang) => {
 
 
   try {
-    const { data: matchData } = await useFetch(`/api/football_matches?${formattedDate}&lang=${langToUse}&sportsBaseUrl=${sportsBaseUrl.value}&authToken=${authToken.value}`);
+    const { data: matchData } = await useFetch(`/api/football_matches?lang=${langToUse}&sportsBaseUrl=${sportsBaseUrl.value}&authToken=${authToken.value}&date=${formattedDate}`);
 
     if (matchData !== null && matchData.value !== null) {
       // console.log('Raw match data:', matchData);

@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
   const token = useRuntimeConfig().token;
   const body =  getQuery(event)
   
-   console.log('body',body)
+  //  console.log('body',body)
   const  {data}  = await $fetch(
     `https://livedata.sportsfeed.pro/competitionlist?sport_id=1&lang=${body.lang}&auth=${body.authToken}`
   );
