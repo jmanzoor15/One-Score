@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- <p>Count: {{ $store.state.count }}</p>
+    <button class="btn-primary"  @click="$store.commit('increment')">Increment</button> -->
     <!-- {{ match }} -->
      <!-- {{ newsUpdate }} -->
     <!-- <button @click="bbytesToString('�H����J`UWTH�������Hb��RJ����Hb���')">click</button> -->

@@ -30,15 +30,22 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss',
     'nuxt-icon',
 ],
+css: ['~/assets/css/main.css'],
+postcss: {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+},
 plugins: [
   {
       src:'~/plugins/v-calendar', mode: 'client'
   },
 
 ],
+
 
 
 })
