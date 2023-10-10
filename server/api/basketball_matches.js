@@ -1,7 +1,5 @@
 import moment from 'moment'
 export default defineEventHandler(async (event) => {
-    const Url = useRuntimeConfig().API_BASE_URL;
-    const token = useRuntimeConfig().token;
     const formattedDate = moment().format('YYYY-MM-DD')
     const query = getQuery(event)
     const queryValue = Object.keys(query)[0];

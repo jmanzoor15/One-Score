@@ -63,7 +63,6 @@ const newsBaseUrl = ref('');
               const now = moment.tz('Asia/Dubai').format('YYYYMMDDHH');
               const tokenFormula1 = `${hexCode}${secretKey}${code}${now}`;
               const token = CryptoJS.MD5(tokenFormula1).toString();
-              console.log('token:', token);
               authToken.value = token;
             }
 
@@ -148,7 +147,7 @@ const fetchData = async (newLang) => {
     const { data: newsData } = await useFetch(`/api/news_football?&lang=${newsLangToUse}&authToken=${authToken.value}&sport_id=1&item_count=5`);
 
     if (newsData !== null && newsData.value !== null) {
-      console.log('Fetched news data:', newsData.value);
+      // console.log('Fetched news data:', newsData.value);
       newsUpdate.value = newsData.value;
       localStorage.setItem('newsData', JSON.stringify(newsData.data));
     } else {
@@ -158,76 +157,9 @@ const fetchData = async (newLang) => {
     console.error('Error fetching news data:', error);
   }
 
-  try {
-    const { data: searchData } = await useFetch(`/api/search?&lang=${langToUse}`)
 
-    if (searchData !== null && searchData.value !== null) {
-      // console.log('Fetched news data:', langToUse);
-      search.value = searchData.value;
-      localStorage.setItem('searchData', JSON.stringify(searchData.value));
-    } else {
-      console.error('news data is null');
-    }
-  } catch (error) {
-    console.error('Error fetching news data:', error);
-  }
 
 };
-
-
-
-// const bytesToString = (match) => {
-
-//   let byte = Math.floor(match.length / 2.4) + 24;
-//   let byte2 = Math.floor(match.length / 2.8) + 28;
-//   const resultArray = [];
-
-//   for (let i = 0; i < match.length; i++) {
-//     let decodedByte;
-//     if (i % 2 === 0) {
-//       decodedByte = match.charCodeAt(i) - byte2;
-//     } else {
-//       decodedByte = match.charCodeAt(i) - byte;
-//     }
-//     resultArray.push(decodedByte);
-//   }
-
-//     // console.log(`match: ${match}`);
-//     // console.log(`match: ${match.length}`);
-//     // console.log(`byte: ${byte}`);
-//     // console.log(`byte2: ${byte2}`);
-//     // console.log(`resultArray: ${resultArray}`);
-
-
-
-//     const decodedBytes = new Uint8Array(resultArray);
-//     // console.log(`decodedBytes: ${decodedBytes}`);
-//     const textDecoder = new TextDecoder('utf-8');
-//     return  textDecoder.decode(decodedBytes);
-   
-// };
-
-
-
-// const bytesToString = (match) => {
-//   console.log(match)
-//   const bytes = new Uint8Array(match);
-// console.log(bytes)
-//   const byte = Math.floor(bytes.length / parseFloat(2.4)) + parseInt(24);
-//   const byte2 = Math.floor(bytes.length / parseFloat(2.8)) + parseInt(28);
-
-//   for (let i = 0; i < bytes.length; i++) {
-//     if (i % 2 === 0) {
-//       bytes[i] = bytes[i] - byte2;
-//     } else {
-//       bytes[i] = bytes[i] - byte;
-//     }
-//   }
-
-//   const textDecoder = new TextDecoder('utf-8');
-//   console.log(textDecoder.decode(bytes))
-//   return textDecoder.decode(bytes);
-// };
 
 
 onMounted(() => {
