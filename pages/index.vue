@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div> 
     <!-- <p>Count: {{ $store.state.count }}</p>
     <button class="btn-primary"  @click="$store.commit('increment')">Increment</button> -->
     <!-- {{ match }} -->
@@ -194,5 +194,17 @@ const currentRoute = computed(() => useRoute().name);
   width: 1200px;
   margin: 0 auto 16px;
   min-height: calc(100vh - 517px);
+}
+body {
+  background-color: #fff;
+  color: rgba(0,0,0,0.8);
+}
+.dark-mode body {
+  background-color: #091a28;
+  color: #ebf4f1;
+}
+.sepia-mode body {
+  background-color: #f1e7d0;
+  color: #433422;
 }
 </style>

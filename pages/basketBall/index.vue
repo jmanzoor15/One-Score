@@ -60,7 +60,7 @@ const authToken = ref('');
                   const now = moment.tz('Asia/Dubai').format('YYYYMMDDHH');
                   const tokenFormula1 = `${hexCode}${secretKey}${code}${now}`;
                   const token = CryptoJS.MD5(tokenFormula1).toString();
-                  console.log('token:', token);
+                  // console.log('token:', token);
                   authToken.value = token;
                 }
 
@@ -69,7 +69,7 @@ const authToken = ref('');
 
 
     const handleLanguageChange = (language) => {
-  console.log("Changing language to:", language);
+  // console.log("Changing language to:", language);
   lang.value = language;
   fetchData(language);
 };
@@ -146,7 +146,7 @@ const fetchData = async (newLang) => {
     const { data: newsData } = await useFetch(`/api/news_basketball?&lang=${newsLangToUse}&authToken=${authToken.value}&sport_id=2&item_count=5`);
 
     if (newsData !== null && newsData.value !== null) {
-      console.log('Fetched news data:', newsData.value);
+      // console.log('Fetched news data:', newsData.value);
       newsUpdate.value = newsData.value;
       localStorage.setItem('newsData', JSON.stringify(newsData.data));
     } else {

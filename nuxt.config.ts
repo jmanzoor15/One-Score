@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     'nuxt-icon',
+    '@nuxtjs/color-mode'
 ],
 css: ['~/assets/css/main.css'],
 postcss: {

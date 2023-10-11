@@ -112,7 +112,7 @@ const prevSlide = () => {
 };
 
 const nextSlide = (numCars) => {
-  console.log(numCars)
+  // console.log(numCars)
   if (currentIndex.value < numCars - slidePerPage) {
     currentIndex.value++;
     if ((currentIndex.value - slidePerPage + 1) % slidePerPage === 0) {
@@ -123,7 +123,7 @@ const nextSlide = (numCars) => {
 };
 
 function getStatus(matchStatus) {
-  console.log(matchStatus,'matchStatus')
+  // console.log(matchStatus,'matchStatus')
   if (matchStatus === 1) {
     return "upcoming";
   } else if (matchStatus === 2) {
