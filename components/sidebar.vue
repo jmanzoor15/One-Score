@@ -1,15 +1,19 @@
 <template>
   <div>
     <div class="index-left bg-white p-2 drop-shadow-md  rounded-md">
-      <div class="hot-comps p-0  pb-12 mb-15">
-        <div class="title border-b border-gray-300 mb-2 h-10 leading-10 font-medium text-black">
-          Popular Leagues
-        </div>
-
-        <a href="#" class="comps-item block box-border items-center rounded cursor-pointer flex h-8 text-gray-700">
-          Premier League
-        </a>
-
+      <div class="hot-comps p-0  pb-12 mb-15" v-if="filteredMatchData.length > 0">
+       <span class=" h-10 leading-10 font-medium text-black">Popular Leagues</span> 
+       <div class="border-b border-gray-300"></div>
+        <div v-for="popular_match in filteredMatchData" :key="popular_match.uuid" class="title ">
+         
+        <div class="popular leagues" >
+          <li  class="relative left-2 p-2 flex">
+                    <img :src="popular_match.logo" 
+                      class="league-logo w-[20px] h-[20px] object-cover rounded-full mr-2">
+                    {{ getFirstName(popular_match.name) }}
+                  </li>
+                </div>
+              </div>
       </div>
       <div class="all-comps p-0 pb-12 mb-15">
         <div class="border-b border-gray-300 mb-3 h-10 flex items-center font-medium text-black">
@@ -61,8 +65,10 @@
 </template>
 
 <script setup>
+
 const props = defineProps({
-    data: Object
+    data: Object,
+    topleague: Object
 });
 
 const list = ref(props.data);
@@ -75,6 +81,40 @@ watch(() => props.data, (newData) => {
   }
 });
 
+const topleagues = ref([]);
+
+watch(() => props.topleague, (newLeague) => {
+  if (newLeague) {
+    topleagues.value = newLeague;
+  } else {
+    topleagues.value = [];
+  }
+});
+
+const filteredMatchData = computed(() => {
+  // console.log('topleagues', topleagues.value);
+  // console.log('list.value', list.value);
+
+  if (topleagues.value && topleagues.value.length > 0) {
+    const filteredData = list.value.reduce((filteredMatches, country) => {
+      const matchesInCountry = country.competition.filter(comp => topleagues.value.includes(comp.uuid));
+      filteredMatches.push(...matchesInCountry);
+      return filteredMatches;
+    }, []);
+
+    // console.log('filteredData', filteredData);
+    return filteredData;
+  } else {
+    return [];
+  }
+});
+
+
+
+
+
+
+// console.log('filteredMatchData',filteredMatchData)
 
 let selectedCountry = ref(null);
 
@@ -107,6 +147,7 @@ const filteredCountries = computed(() => {
     return [];
   }
 });
+
 
 </script>
 
