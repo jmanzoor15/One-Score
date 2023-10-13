@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <!-- <p>Count: {{ $store.state.count }}</p>
     <button class="btn-primary"  @click="$store.commit('increment')">Increment</button> -->
     <!-- {{ match }} -->
@@ -10,7 +10,7 @@
       <div class="page-content-box max-w-full mx-auto ">
         <HotMatches :data="match" :topleague="topleague_football" />
         <div class="flex mt-[16px] ">
-          <Sidebar :data="sidebar" />
+          <Sidebar :data="sidebar" :topleague="topleague_football" />
           <MatchList :data="match" :date="date" />
           <div class="flex flex-col items-center">
             <div class="ml-8 w-[300px]  rounded-md drop-shadow-md">
